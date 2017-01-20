@@ -1045,6 +1045,34 @@ suite('a-entity', function () {
       assert.equal(el.getAttribute('sound__2').src, soundUrl);
       assert.equal(el.getAttribute('sound__2').autoplay, true);
     });
+
+    test('applies mixin ids separated with spaces, tabs, and new lines', function () {
+      var el = this.el;
+      mixinFactory('material', {material: 'shader: flat'});
+      mixinFactory('position', {position: '1 2 3'});
+      mixinFactory('rotation', {rotation: '10 20 30'});
+      el.setAttribute('mixin', '  material\t\nposition \t  rotation\n  ');
+      el.setAttribute('material', 'color: red');
+      assert.shallowDeepEqual(el.getAttribute('material'), {shader: 'flat', color: 'red'});
+      assert.shallowDeepEqual(el.getAttribute('position'), {x: 1, y: 2, z: 3});
+      assert.shallowDeepEqual(el.getAttribute('rotation'), {x: 10, y: 20, z: 30});
+      assert.equal(el.mixinEls.length, 3);
+    });
+
+    test('clear mixin', function () {
+      var el = this.el;
+      mixinFactory('material', {material: 'shader: flat'});
+      mixinFactory('position', {position: '1 2 3'});
+      el.setAttribute('mixin', 'material position');
+      el.setAttribute('material', 'color: red');
+      assert.shallowDeepEqual(el.getAttribute('material'), {shader: 'flat', color: 'red'});
+      assert.shallowDeepEqual(el.getAttribute('position'), {x: 1, y: 2, z: 3});
+      assert.equal(el.mixinEls.length, 2);
+      el.setAttribute('mixin', '');
+      assert.shallowDeepEqual(el.getAttribute('material'), {color: 'red'});
+      assert.shallowDeepEqual(el.getAttribute('position'), {x: 0, y: 0, z: 0});
+      assert.equal(el.mixinEls.length, 0);
+    });
   });
 });
 

@@ -119,12 +119,20 @@ module.exports.clone = function (obj) {
 function deepEqual (a, b) {
   var keysA = Object.keys(a);
   var keysB = Object.keys(b);
+  var valA;
+  var valB;
   var i;
   if (keysA.length !== keysB.length) { return false; }
   // If there are no keys, compare the objects.
   if (keysA.length === 0) { return a === b; }
   for (i = 0; i < keysA.length; ++i) {
-    if (a[keysA[i]] !== b[keysA[i]]) { return false; }
+    valA = a[keysA[i]];
+    valB = b[keysA[i]];
+    if ((Array.isArray(valA) && Array.isArray(valB))) {
+      if (!deepEqual(valA, valB)) { return false; }
+    } else if (valA !== valB) {
+      return false;
+    }
   }
   return true;
 }
@@ -211,6 +219,7 @@ module.exports.getElData = function (el, defaults) {
  * @return {String}      Value
  */
 module.exports.getUrlParameter = function (name) {
+  // eslint-disable-next-line no-useless-escape
   name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
   var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
   var results = regex.exec(location.search);

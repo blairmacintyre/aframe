@@ -32,7 +32,7 @@ by pressing `<ctrl> + <alt> + i`. **Note:** the CSS for the Inspector currently
 conflict with the A-Frame site styles, so visuals may look ugly.
 
 <div>
-  <script src="http://localhost:9000/dist/aframe.js"></script>
+  <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-bmfont-text-component@0.1.4/dist/aframe-bmfont-text-component.min.js"></script>
   <a-scene embedded style="height: 320px; width: 100%">
     <a-assets>
@@ -192,7 +192,7 @@ For example, we could have a sphere as a child of a box:
 ```html
 <a-scene>
   <a-box position="0 2 0" rotation="0 45 45" scale="2 4 2">
-    <a-sphere position="1 0 3"><a-sphere>
+    <a-sphere position="1 0 3"></a-sphere>
   </a-box>
 </a-scene>
 ```
@@ -533,9 +533,9 @@ a full `{x, y, z}` object as the second argument.
 
 ```js
 <script>
-  var boxEl = document.querySelector('a-box')
+  var boxEl = document.querySelector('a-box');
   boxEl.addEventListener('mouseenter', function () {
-    boxEl.setAttribute('scale', {x: 2, y: 2: z: 2});
+    boxEl.setAttribute('scale', {x: 2, y: 2, z: 2});
   });
 </script>
 ```
@@ -555,7 +555,7 @@ running on the page:
 
     init: function () {
       var data = this.data;
-      this.el.addEventListener('click', function () {
+      this.el.addEventListener('mouseenter', function () {
         this.setAttribute('scale', data.to);
       });
     }
@@ -668,8 +668,8 @@ into it:
 
 Traditionally, we would use a browser's development tools and DOM inspector to
 debug web pages. A-Frame comes with its own development tools and inspector
-designed for 3D and VR. The A-Frame Inspector can be opened by pressing `<ctrl>
-+ <alt> + i` on our keyboard. The A-Frame scene at the top of this page will be
+designed for 3D and VR. The A-Frame Inspector can be opened by pressing **`<ctrl> + <alt> + i`**
+on our keyboard. The A-Frame scene at the top of this page will be
 opened in a visual tool, where we can inspect objects and change values live.
 And we can do this for any A-Frame scene we find on the Web.
 

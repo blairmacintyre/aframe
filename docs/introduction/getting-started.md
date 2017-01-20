@@ -23,6 +23,8 @@ download or install anything. Check out the [official MozVR
 CodePens](http://codepen.io/mozvr/) and the [A-Frame Hello World
 CodePen][codepen]:
 
+**Note:** VR mode currently won't work until the `allowvr` attribute is added to CodePen's I-Frames.
+
 <p data-height="300" data-theme-id="0" data-slug-hash="BjygdO" data-default-tab="html" data-user="mozvr" class="codepen">See the Pen <a href="http://codepen.io/team/mozvr/pen/BjygdO/">Hello World â A-Frame</a> by Mozilla VR (<a href="http://codepen.io/mozvr">@mozvr</a>) on <a href="http://codepen.io">CodePen</a>.</p>
 
 ## Grab the Boilerplate
@@ -44,6 +46,15 @@ We should develop with a local server so that files are properly served. We can 
 - Download the [Mongoose](https://www.cesanta.com/products/binary) application
   and open it from the same directory as your HTML file.
 - Or use Node and npm to start the local server with `npm install && npm run start`.
+
+[angle]: https://www.npmjs.com/package/angle
+
+If you have npm, you can get started with scene template right from the command
+line with [`angle`][angle], a command line interface for A-Frame:
+
+```sh
+npm install -g angle && angle initscene
+```
 
 ## Include the JS Build
 

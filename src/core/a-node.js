@@ -1,7 +1,9 @@
 /* global HTMLElement, MutationObserver */
 var registerElement = require('./a-register-element').registerElement;
 var utils = require('../utils/');
+
 var bind = utils.bind;
+var warn = utils.debug('core:a-node:warn');
 
 /**
  * Base class for A-Frame that manages loading of objects.
@@ -24,9 +26,14 @@ module.exports = registerElement('a-node', {
     attachedCallback: {
       value: function () {
         var mixins;
+        this.sceneEl = this.closestScene();
+
+        if (!this.sceneEl) {
+          warn('You are attempting to attach <' + this.tagName + '> outside of an A-Frame ' +
+               'scene. Append this element to `<a-scene>` instead.');
+        }
 
         this.hasLoaded = false;
-        this.sceneEl = this.closestScene();
         this.emit('nodeready', {}, false);
 
         mixins = this.getAttribute('mixin');
@@ -122,8 +129,8 @@ module.exports = registerElement('a-node', {
 
     updateMixins: {
       value: function (newMixins, oldMixins) {
-        var newMixinsIds = newMixins.split(' ');
-        var oldMixinsIds = oldMixins ? oldMixins.split(' ') : [];
+        var newMixinsIds = newMixins ? newMixins.trim().split(/\s+/) : [];
+        var oldMixinsIds = oldMixins ? oldMixins.trim().split(/\s+/) : [];
         // To determine what listeners will be removed
         var diff = oldMixinsIds.filter(function (i) { return newMixinsIds.indexOf(i) < 0; });
         this.mixinEls = [];

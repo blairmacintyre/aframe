@@ -5,15 +5,32 @@ layout: docs
 parent_section: components
 ---
 
-The screenshot component lets us take screenshots with a keyboard shortcut
-(`<ctrl> + <alt> +s`). The component can take 360&deg; captures
-(`equirectangular`) or regular screenshots (`projection`). A-Frame attaches
-this component to the scene by default so it's automatically available.
+The screenshot component lets us take different types of screenshots by using
+keyboard shortcuts. A-Frame attaches this component to the scene by default so
+it's automatically available.
+
+To take a normal (perspective) screenshot, use the keyboard shortcut (`<ctrl> + <alt>
++s`).
+
+To take a 360&deg; (equirectangular) screenshot, use the keyboard shortcut
+(`<ctrl> + <alt> + <shift> +s`).
+
+To take a screenshot programmatically, call the component
+
+```javascript
+// assuming your current scene is represented by sceneEl
+sceneEl.components.screenshot.capture('perspective')
+// projection property can be perspective or equirectangular
+```
 
 ## Example
 
+Unless we wish to customize the screenshot, explicitly setting the screenshot
+component is not needed since it's already attached to the scene by default.
+Otherwise, here's an example:
+
 ```html
-<a-scene screenshot="projection: equirectangular"></a-scene>
+<a-scene screenshot="projection: perspective"></a-scene>
 ```
 
 ## Properties
@@ -22,4 +39,4 @@ this component to the scene by default so it's automatically available.
 |------------|----------------------------------------------------------------|-----------------|
 | width      | The width in pixels of the screenshot taken.                   | 4096            |
 | height     | The height in pixels of the screenshot taken.                  | 2048            |
-| projection | The screenshot projection: `perspective` or `equirectangular`. | equirectangular |
+| projection | The screenshot type: `perspective` or `equirectangular`.       | equirectangular |
